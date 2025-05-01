@@ -1,0 +1,76 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@rules_cc//cc:defs.bzl", "cc_import")
+
+cc_import(
+    name = "libcore",
+    static_library = select(
+        {
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libcore.a",
+        },
+        no_match_error = "Only Linux platform supported",
+    ),
+)
+
+cc_import(
+    name = "libcorefunctions",
+    static_library = select(
+        {
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libcorefunctions.a",
+        },
+        no_match_error = "Only Linux platform supported",
+    ),
+)
+
+cc_import(
+    name = "libparquet",
+    static_library = select(
+        {
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libparquet.a",
+        },
+        no_match_error = "Only Linux platform supported",
+    ),
+)
+
+cc_import(
+    name = "libicu",
+    static_library = select(
+        {
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libicu.a",
+        },
+        no_match_error = "Only Linux platform supported",
+    ),
+)
+
+go_library(
+    name = "linux-amd64",
+    srcs = [
+        "bindings.go",
+        "build_release.go",
+        "cgo_static.go",
+        "duckdb.h",
+    ],
+    cdeps = [
+        ":libcore",
+        ":libcorefunctions",
+        ":libparquet",
+        ":libicu",
+    ],
+    cgo = True,
+    clinkopts = ["-lcore -lcorefunctions -lparquet -licu -lstdc++ -lm -ldl -Lexternal/com_github_duckdb_duckdb_go_bindings_linux_amd64/libs"],
+    cppopts = ["-DDUCKDB_STATIC_BUILD"],
+    importpath = "github.com/duckdb/duckdb-go-bindings/linux-amd64",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":linux-amd64",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "linux-amd64_test",
+    srcs = ["bindings_test.go"],
+    embed = [":linux-amd64"],
+    deps = ["@com_github_stretchr_testify//require"],
+)
