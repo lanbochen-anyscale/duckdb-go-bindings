@@ -56,7 +56,7 @@ go_library(
         ":libicu",
     ],
     cgo = True,
-    clinkopts = ["-lcore -lcorefunctions -lparquet -licu -lstdc++ -lm -ldl -Lexternal/com_github_duckdb_duckdb_go_bindings_linux_amd64/libs"],
+    clinkopts = ["-lcore -lcorefunctions -lparquet -licu -lstdc++ -lm -ldl -Lexternal/com_github_duckdb_duckdb_go_bindings_linux_amd64"],
     cppopts = ["-DDUCKDB_STATIC_BUILD"],
     importpath = "github.com/duckdb/duckdb-go-bindings/linux-amd64",
     visibility = ["//visibility:public"],
