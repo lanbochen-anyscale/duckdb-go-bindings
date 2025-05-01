@@ -5,7 +5,7 @@ cc_import(
     name = "libcore",
     static_library = select(
         {
-            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libcore.a",
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libcore.a",
         },
         no_match_error = "Only Linux platform supported",
     ),
@@ -15,7 +15,7 @@ cc_import(
     name = "libcorefunctions",
     static_library = select(
         {
-            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libcorefunctions.a",
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libcorefunctions.a",
         },
         no_match_error = "Only Linux platform supported",
     ),
@@ -25,7 +25,7 @@ cc_import(
     name = "libparquet",
     static_library = select(
         {
-            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libparquet.a",
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libparquet.a",
         },
         no_match_error = "Only Linux platform supported",
     ),
@@ -35,7 +35,7 @@ cc_import(
     name = "libicu",
     static_library = select(
         {
-            "@io_bazel_rules_go//go/platform:linux_amd64": "libs/libicu.a",
+            "@io_bazel_rules_go//go/platform:linux_amd64": "libicu.a",
         },
         no_match_error = "Only Linux platform supported",
     ),
